@@ -1,0 +1,22 @@
+{
+  "name": "pihomeserver",
+  "version": "0.1.0",
+  "description": "A home server instance for multiple home integration purposes",
+  "main": "server.js",
+  "dependencies": {
+    "deepstream.io-client-js": "^2.2.1",
+    "express": "^4.14.0",
+    "feed-read-parser": "0.0.6",
+    "file-stream-rotator": "0.0.7",
+    "iconv-lite": "^0.4.18",
+    "morgan": "^1.7.0",
+    "node-cron": "^1.2.0",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Lowe",
+  "license": "ISC"
+}
