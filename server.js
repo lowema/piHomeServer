@@ -32,6 +32,9 @@ logger.info('ROUTE: /');
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, 'static/client') + '/index.html');
 });
+//route to the bower modules
+logger.info('ROUTE: /bower_components');
+app.use('/bower_components', express.static(path.join(__dirname, 'static/bower_components')));
 //route to the client application at /client
 logger.info('ROUTE: /client');
 app.use('/client', express.static(path.join(__dirname, 'static/client')));

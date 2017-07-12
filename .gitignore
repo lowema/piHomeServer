@@ -1,6 +1,6 @@
 .DS_Store
 node_modules/
-bower_modules/
+static/bower_components/
 
 # Don't track build output
 dist/

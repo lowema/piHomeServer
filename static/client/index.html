@@ -1,8 +1,48 @@
-<html>
-	<head>
-		<title>piHomeServer Client</title>
-	</head>
-	<body>
-		<h1>piHomeServer</h1>
-	</body>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>experiment</title>
+
+    <link rel="stylesheet" type="text/css" href="client/css/screen.css" />
+
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/knockout/dist/knockout.debug.js"></script>
+    <script type="text/javascript" src="bower_components/deepstream.io-tools-ko/dist/ko-tools.js"></script>
+    <script type="text/javascript" src="bower_components/deepstream.io-client-js/dist/deepstream.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <script type="text/javascript" src="client/js/start-ko.js"></script>
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="col left">
+            <ul class="articles" data-bind="foreach: articles.entries">
+                <li data-bind="css:{ active: isActive }, click: $parent.selectArticle.bind($parent)">
+                    <em>
+						<span data-bind="text:title"></span>
+					</em>
+                    <span data-bind="text:published"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col right">
+            <fieldset>
+                <legend data-bind="text:article.title"></legend>
+                <ul class="fields">
+                    <li>
+                        <p data-bind="text:article.content"></p>
+                    </li>
+                    <li>
+                        <label>Published</label><span data-bind="text:article.published"></span>
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+    </div>
+</body>
+
 </html>
