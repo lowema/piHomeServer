@@ -6,22 +6,28 @@ const doHouseStuff = async () => {
 
     await house.addRoom('Lounge');
     await house.addRoom('Kitchen');
-    await house.addRoom('Verrandah');
-    await house.deleteRoom('Verrandah');
-    await house.addRoom('Conservatory');
+    await house.addRoom('Bedroom');
 
     const [data,count] = [await house.getAllData(),await house.getCount()];
     logger.info(count + ' records in total.');
     logger.info(data);
+}
 
-    await house.deleteAllData();
+const doFeedStuff = async () => {
+    const feeds = new DB.Feeds();
 
-    const [data2,count2] = [await house.getAllData(),await house.getCount()];
-    logger.info(count2 + ' records in total.');
-    logger.info(data2);
+    await feeds.add('BBC News','http://feeds.bbci.co.uk/news/rss.xml');
+    await feeds.add('Guardian News','https://www.theguardian.com/uk/rss');
 
+    const [data,count] = [await feeds.getAllData(),await feeds.getCount()];
+    logger.info(count + ' records in total.');
+    logger.info(data);
 }
 
 logger.info('TEST STARTS ...');
 doHouseStuff();
+logger.info('TEST ENDS ...');
+
+logger.info('TEST STARTS ...');
+doFeedStuff();
 logger.info('TEST ENDS ...');

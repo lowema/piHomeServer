@@ -14,14 +14,7 @@ exports.settings = {
         "accessLogTokens": ":date[iso] :method :url :status :response-time :user-agent :remote-addr :remote-user"
     },
     "collectors": [
-        { "name": 'RSS Collector', "cron": '*/30 * * * * *', "module": './collectors/getNews' },
+        { "name": 'RSS Collector', "cron": '*/30 * * * * *', "module": './collectors/RSS/getNews' },
         { "name": 'Test Collector', "cron": '*/10 * * * * *', "module": './collectors/test' }
-    ]
-}
-
-exports.feeds = {
-    "RSS": [
-        'http://feeds.bbci.co.uk/news/rss.xml',
-        'https://www.theguardian.com/uk/rss'
     ]
 }
