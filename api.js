@@ -1,52 +1,83 @@
 const logger = require('winston');
+const express = require('express');
 
-exports.apiSetup = function (router) {
+var router = new express.Router();
 
+const checkReservedParams = (routeHandler, ...reserved) => {
+    return (req, res, next) => {
+        for (const reservedKey of reserved) {
+            if (req.body[reservedKey]) {
+                return res.status(400).json({
+                    error: `Cannot specify ${reservedKey} as part of request body`
+                });
+            }
+        }
+
+        routeHandler(req, res, next);
+    }
+};
+
+const catchAsyncErrors = (routeHandler) => {
+    return async (req, res, next) => {
+        try {
+            await routeHandler(req, res, next);
+        } catch (err) {
+            next(err);
+        }
+    }
+};
+
+
+exports.router = function () {
     logger.trace('in API.JS');
     // test API
     logger.info('ROUTE: /test');
+    const apiTest = require('./api/apiTest');
     router.route('/test')
-        .all(require('./api/apiTest').all)
-        .get(require('./api/apiTest').get)
-        .put(require('./api/apiTest').put)
-        .post(require('./api/apiTest').post)
-        .delete(require('./api/apiTest').delete);
+        .all(catchAsyncErrors(apiTest.all))
+        .get(catchAsyncErrors(apiTest.get))
+        .put(catchAsyncErrors(apiTest.put))
+        .post(catchAsyncErrors(apiTest.post))
+        .delete(catchAsyncErrors(apiTest.delete));
 
 
     // home management API
     logger.info('ROUTE: /home');
+    const homeAPI = require('./api/home');
     router.route('/home')
-        .all(require('./api/home').all)
-        .get(require('./api/home').get)
-        .put(require('./api/home').put);
+        .all(catchAsyncErrors(homeAPI.all))
+        .get(catchAsyncErrors(homeAPI.get))
+        .put(catchAsyncErrors(homeAPI.put));
 
     logger.info('ROUTE: /home/rooms');
+    const roomsAPI = require('.api/rooms');
     router.route('/home/rooms')
-        .all(require('./api/rooms').all)
-        .get(require('./api/rooms').get)
-        .post(require('./api/rooms').post);
+        .all(catchAsyncErrors(roomsAPI.all))
+        .get(catchAsyncErrors(roomsAPI.get))
+        .post(catchAsyncErrors(roomsAPI.post));
 
-    logger.info('ROUTE: /home/rooms/:roomID');
+    logger.info('ROUTE: /home/rooms/{roomID}');
+    const roomAPI = require('.api/room-id');
     router.route('/home/rooms/:roomID')
-        .all(require('./api/room-id').all)
-        .get(require('./api/room-id').get)
-        .put(require('./api/room-id').put)
-        .delete(require('./api/room-id').delete);
+        .all(catchAsyncErrors(roomAPI.all))
+        .get(catchAsyncErrors(roomAPI.get))
+        .put(catchAsyncErrors(roomAPI.put))
+        .delete(catchAsyncErrors(roomAPI.delete));
 
-    logger.info('ROUTE: /home/rooms/:roomID/devices');
+    logger.info('ROUTE: /home/rooms/{roomID}/devices');
+    const devicesAPI = require('.api/devices');
     router.route('/home/rooms/:roomID/devices')
-        .all(require('./api/devices').all)
-        .get(require('./api/devices').get)
-        .post(require('./api/devices').post);
+        .all(catchAsyncErrors(devicesAPI.all))
+        .get(catchAsyncErrors(devicesAPI.get))
+        .post(catchAsyncErrors(devicesAPI.post));
 
-    logger.info('ROUTE: /home/rooms/:roomID/devices/:deviceID');
+    logger.info('ROUTE: /home/rooms/{roomID}/devices/{deviceID}');
+    const deviceAPI = require('.api/device-id');
     router.route('/home/rooms/:roomID/devices/:deviceID')
-        .all(require('./api/device-id').all)
-        .get(require('./api/device-id').get)
-        .put(require('./api/device-id').put)
-        .delete(require('./api/device-id').delete);
+        .all(catchAsyncErrors(deviceAPI.all))
+        .get(catchAsyncErrors(deviceAPI.get))
+        .put(catchAsyncErrors(deviceAPI.put))
+        .delete(catchAsyncErrors(deviceAPI.delete));
 
-
-    // device manipulation API
-
+    return router;
 }

@@ -1,29 +1,27 @@
-// apitest.js
-//
-// a test module to see if the endpoint works
-//==========================================================================================================
+const logger = require('winston');
 
-exports.all = function (req, res, next) {
-    console.log('APITEST.JS');
-    next();
+exports.all = async (req, res, next) => {
+    logger.info('TEST.JS(all)');
+    await next();
 }
 
-exports.get = function (req, res, next) {
-    console.log('GET happened');
+exports.get = async (req, res, next) => {
+    const plop = await logger.info('TEST.JS(get)');
     res.sendStatus(200);
+    return plop;
 }
 
-exports.post = function (req, res, next) {
+exports.post = async (req, res, next) => {
     console.log('POST happened');
     next(new Error('Not yet implemented'));
 }
 
-exports.put = function (req, res, next) {
+exports.put = async (req, res, next) => {
     console.log('POST happened');
     next(new Error('Not yet implemented'));
 }
 
-exports.delete = function (req, res, next) {
+exports.delete = async (req, res, next) => {
     console.log('POST happened');
     next(new Error('Not yet implemented'));
 }

@@ -3,17 +3,17 @@ const DBrooms = require('../data/rooms');
 
 const roomsDB = new DBrooms.Data();
 
-exports.all = function (req, res, next) {
+exports.all = async (req, res, next) => {
     logger.trace('ROOMS.JS');
-    next();
+    await next();
 }
 
-exports.get = function (req, res, next) {
+exports.get = async (req, res, next) => {
     logger.trace('GET happened');
     res.sendStatus(200);
 }
 
-exports.post = function (req, res, next) {
+exports.post = async (req, res, next) => {
     logger.trace('POST happened');
-    next(new Error('Not yet implemented'));
+    await next(new Error('Not yet implemented'));
 }

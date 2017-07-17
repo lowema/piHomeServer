@@ -11,9 +11,7 @@ app.use(require('./access.js'));
 
 //***API routes are defined here
 logger.info('API ROUTES ...');
-var router = new express.Router();
-require('./api').apiSetup(router);
-app.use(router);
+app.use(require('./api').router());
 
 //***STATIC routes set up here for serving a client app
 logger.info('STATIC ROUTES ...');
