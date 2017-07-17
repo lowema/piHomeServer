@@ -2,13 +2,15 @@ const logger = require('winston');
 const request = require('request');
 const _ = require('underscore');
 const moment = require('moment');
-const FeedParser = require('./feedParser');
+const FeedParser = require('./feedParse');
 
-var scrubHTML = function (html) {
+
+// Helper functions
+var scrubHTML = (html) => {
     return html.replace(/<script.*<\/script>/gi, "");
 }
 
-var childByName = function (parent, name) {
+var childByName = (parent, name) => {
     var children = parent.children || [];
     for (var i = 0; i < children.length; i++) {
         if (children[i].name === name) {
@@ -19,7 +21,7 @@ var childByName = function (parent, name) {
     return null;
 }
 
-var childData = function (parent, name) {
+var childData = (parent, name) => {
     var node = childByName(parent, name)
     if (!node) {
         return "";
@@ -45,19 +47,19 @@ var childData = function (parent, name) {
 //              * "feed" - {name, source, link}
 //
 // Returns nothing.
-var FeedRead = function (feedURL, callback) {
+var FeedRead = (feedURL, callback) => {
     FeedRead.get(feedURL, callback);
 };
 
-FeedRead.identifyCharset = function (response) {
+FeedRead.identifyCharset = (response) => {
     var contentType = response && response.headers && response.headers["content-type"];
     var match = contentType && contentType.match(/charset=(\S+)/);
 
     return match && match[1] || "utf-8";
 }
 
-FeedRead.get = function (feedURL, callback) {
-    request(feedURL, { timeout: 5000 }, function (err, res, body) {
+FeedRead.get = (feedURL, callback) => {
+    request(feedURL, { timeout: 5000 }, (err, res, body) => {
         if (err) {
             logger.error('Unable to fetch feed ', '<' + feedURL + '>', res.statusCode);
 
@@ -78,7 +80,7 @@ FeedRead.get = function (feedURL, callback) {
     });
 };
 
-FeedRead.identify = function (xml) {
+FeedRead.identify = (xml) => {
     if (/<(rss|rdf)\b/i.test(xml)) {
         return "rss";
     } else if (/<feed\b/i.test(xml)) {
@@ -88,7 +90,7 @@ FeedRead.identify = function (xml) {
     }
 }
 
-FeedRead.atom = function (xml, source, callback) {
+FeedRead.atom = (xml, source, callback) => {
     if (!callback) {
         return FeedRead.atom(xml, "", source);
     }
@@ -153,7 +155,7 @@ FeedRead.atom = function (xml, source, callback) {
 };
 
 
-FeedRead.rss = function (xml, source, callback) {
+FeedRead.rss = (xml, source, callback) => {
     if (!callback) {
         return FeedRead.rss(xml, "", source);
     }
@@ -161,7 +163,7 @@ FeedRead.rss = function (xml, source, callback) {
     var parser = new FeedParser();
     var articles = [];
     var meta = { source: source };
-    var article;
+    var article = {};
 
     parser.onopentag = function (tag) {
         if (tag.name === "item") {
@@ -209,7 +211,7 @@ FeedRead.rss = function (xml, source, callback) {
                 return obj;
             }
         ), function (art) {
-            return !!art;
+            return Boolean(art);
         }));
     };
 

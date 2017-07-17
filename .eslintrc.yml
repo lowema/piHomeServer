@@ -4,6 +4,9 @@ env:
 extends: 'eslint:recommended'
 parserOptions:
   sourceType: module
+  ecmaVersion: 2017
+  ecmaFeatures:
+    impliedStrict: true
 rules:
   accessor-pairs: error
   array-bracket-newline: error
@@ -33,7 +36,7 @@ rules:
   complexity: error
   computed-property-spacing: error
   consistent-return: error
-  consistent-this: error
+  consistent-this: [2,"self"]
   curly: error
   default-case: error
   dot-location:
@@ -208,18 +211,17 @@ rules:
   quotes: 'off'
   radix: error
   require-await: error
-  require-jsdoc: error
+  require-jsdoc: 'off'
   rest-spread-spacing: error
   semi: 'off'
   semi-spacing: error
   semi-style:
     - error
     - last
-  sort-imports: error
+  sort-imports: 'off'
   sort-keys: 'off'
   sort-vars: error
   space-before-blocks: error
-  space-before-function-paren: error
   space-in-parens:
     - error
     - never

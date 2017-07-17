@@ -1,0 +1,12 @@
+{"roomName":"Conservatory","createdAt":1500295908498,"_id":"0O8WfZI2fsy9xymw"}
+{"roomName":"Kitchen","createdAt":1500295908492,"_id":"8Ivimrxy2QXkBpHA"}
+{"roomName":"Lounge","createdAt":1500295908465,"_id":"SpzhXtaiQhTxZQcW"}
+{"$$indexCreated":{"fieldName":"roomName","unique":true,"sparse":false}}
+{"roomName":"Lounge","createdAt":1500295934137,"_id":"SpzhXtaiQhTxZQcW"}
+{"roomName":"Kitchen","createdAt":1500295934167,"_id":"8Ivimrxy2QXkBpHA"}
+{"roomName":"Verrandah","createdAt":1500295934169,"_id":"vrm7jbpxQoX1J01b"}
+{"$$deleted":true,"_id":"vrm7jbpxQoX1J01b"}
+{"roomName":"Conservatory","createdAt":1500295934172,"_id":"0O8WfZI2fsy9xymw"}
+{"$$deleted":true,"_id":"0O8WfZI2fsy9xymw"}
+{"$$deleted":true,"_id":"8Ivimrxy2QXkBpHA"}
+{"$$deleted":true,"_id":"SpzhXtaiQhTxZQcW"}
