@@ -1,8 +1,7 @@
-// home.js
-//
-// Looks after the /home persistance
-//==========================================================================================================
-var logger = require('winston');
+const logger = require('winston');
+const DBhome = require('../data/home');
+
+const homeDB = new DBhome.Data();
 
 exports.all = function (req, res, next) {
     logger.trace('HOME.JS');

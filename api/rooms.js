@@ -1,8 +1,7 @@
-// rooms.js
-//
-// looks after the rooms persistance
-//==========================================================================================================
 var logger = require('winston');
+const DBrooms = require('../data/rooms');
+
+const roomsDB = new DBrooms.Data();
 
 exports.all = function (req, res, next) {
     logger.trace('ROOMS.JS');

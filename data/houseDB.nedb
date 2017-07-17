@@ -1,7 +1,0 @@
-{"roomName":"Kitchen","createdAt":1500301392596,"_id":"4zg5FRSrZothBK4S"}
-{"roomName":"Lounge","createdAt":1500301392566,"_id":"LoHu6dBaFQ7yfrrL"}
-{"roomName":"Bedroom","createdAt":1500301392596,"_id":"ze3I3zhlaOU3yPEr"}
-{"$$indexCreated":{"fieldName":"roomName","unique":true,"sparse":false}}
-{"roomName":"Lounge","createdAt":1500301422309,"_id":"LoHu6dBaFQ7yfrrL"}
-{"roomName":"Kitchen","createdAt":1500301422349,"_id":"4zg5FRSrZothBK4S"}
-{"roomName":"Bedroom","createdAt":1500301422349,"_id":"ze3I3zhlaOU3yPEr"}

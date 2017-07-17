@@ -1,9 +1,10 @@
 const logger = require('winston');
 const feed = require('./feedRead');
-const DB = require('../../dbaccess');
+const DBfeeds = require('../../data/feeds');
+const DBarticles = require('../../data/articles');
 
-const feedDB = new DB.Feeds();
-const articleDB = new DB.Articles();
+const feedDB = new DBfeeds.Data();
+const articleDB = new DBarticles.Data();
 
 const feedHandler = (err, articles) => {
     if (err) {

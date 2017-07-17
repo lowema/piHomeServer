@@ -1,3 +1,0 @@
-{"feedName":"BBC News","feedURL":"http://feeds.bbci.co.uk/news/rss.xml","createdAt":1500301422319,"_id":"9lW7XKRo7Za4BQgO"}
-{"feedName":"Guardian News","feedURL":"https://www.theguardian.com/uk/rss","createdAt":1500301422349,"_id":"QqVpU7OjjG50E0YS"}
-{"$$indexCreated":{"fieldName":"feedURL","unique":true,"sparse":false}}
