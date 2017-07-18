@@ -10,7 +10,8 @@ exports.all = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     logger.trace('GET happened');
-    res.sendStatus(200);
+    const data = await roomsDB.getAllData();
+    res.json(data);
 }
 
 exports.post = async (req, res, next) => {

@@ -50,14 +50,14 @@ exports.router = function () {
         .put(catchAsyncErrors(homeAPI.put));
 
     logger.info('ROUTE: /home/rooms');
-    const roomsAPI = require('.api/rooms');
+    const roomsAPI = require('./api/rooms');
     router.route('/home/rooms')
         .all(catchAsyncErrors(roomsAPI.all))
         .get(catchAsyncErrors(roomsAPI.get))
         .post(catchAsyncErrors(roomsAPI.post));
 
     logger.info('ROUTE: /home/rooms/{roomID}');
-    const roomAPI = require('.api/room-id');
+    const roomAPI = require('./api/room-id');
     router.route('/home/rooms/:roomID')
         .all(catchAsyncErrors(roomAPI.all))
         .get(catchAsyncErrors(roomAPI.get))
@@ -65,14 +65,14 @@ exports.router = function () {
         .delete(catchAsyncErrors(roomAPI.delete));
 
     logger.info('ROUTE: /home/rooms/{roomID}/devices');
-    const devicesAPI = require('.api/devices');
+    const devicesAPI = require('./api/devices');
     router.route('/home/rooms/:roomID/devices')
         .all(catchAsyncErrors(devicesAPI.all))
         .get(catchAsyncErrors(devicesAPI.get))
         .post(catchAsyncErrors(devicesAPI.post));
 
     logger.info('ROUTE: /home/rooms/{roomID}/devices/{deviceID}');
-    const deviceAPI = require('.api/device-id');
+    const deviceAPI = require('./api/device-id');
     router.route('/home/rooms/:roomID/devices/:deviceID')
         .all(catchAsyncErrors(deviceAPI.all))
         .get(catchAsyncErrors(deviceAPI.get))
