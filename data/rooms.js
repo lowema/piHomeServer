@@ -17,7 +17,7 @@ class RoomDB extends Database {
             createdAt: Date.now()
         };
 
-        const record = await this.database.update(idx, doc, { upsert: true });
+        const record = await this.database.update(idx, doc, { upsert: true, returnUpdatedDocs: true });
 
         return record;
     }

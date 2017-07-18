@@ -17,7 +17,9 @@ class FeedsDB extends Database {
             createdAt: Date.now()
         };
 
-        await this.database.update(idx, doc, { upsert: true });
+        const record = await this.database.update(idx, doc, { upsert: true, returnUpdatedDocs: true });
+
+        return record;
     }
     async delete(name, feedURL) {
         logger.debug('DB [' + this.db + '] delete feed: ' + feedURL);

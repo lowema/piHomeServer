@@ -22,7 +22,9 @@ class ArticlesDB extends Database {
             createdAt: Date.now()
         };
 
-        await this.database.update(idx, doc, { upsert: true });
+        const record = await this.database.update(idx, doc, { upsert: true, returnUpdatedDocs: true });
+
+        return record;
     }
     async delete(articleGUID) {
         logger.debug('DB [' + this.db + '] delete article: ' + articleGUID);
