@@ -1,4 +1,4 @@
-const logger = require('./logger');
+const logger = require('./utils/logger');
 const DBhome = require('./data/home');
 const DBrooms = require('./data/rooms');
 const DBdevices = require('./data/devices');

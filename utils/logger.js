@@ -1,4 +1,4 @@
-const settings = require('./settings').settings;
+const settings = require('../settings').settings;
 const fs = require('fs');
 const logger = require('winston');
 

@@ -28,7 +28,7 @@ const catchAsyncErrors = (routeHandler) => {
 };
 
 
-exports.router = function () {
+exports.router = () => {
     logger.trace('in API.JS');
     // test API
     logger.info('ROUTE: /test');
