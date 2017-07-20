@@ -20,6 +20,14 @@ const doHomeStuff = async () => {
     logger.info(await devices.add('Lamp 4'));
     logger.info(await devices.add('Lamp 5'));
 
+    logger.info(await devices.linkToRoom('Lamp 1', 'Lounge'));
+    logger.info(await devices.linkToRoom('Lamp 4', 'Lounge'));
+
+    logger.info(await devices.linkToRoom('Lamp 2', 'Bedroom'));
+
+    logger.info(await devices.getDevicesInRoom('Lounge'));
+
+
     const [datah, counth] = [await home.getAllData(), await home.getCount()];
     logger.info(datah);
     logger.info(counth + ' records in total.');

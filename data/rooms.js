@@ -29,23 +29,6 @@ class RoomDB extends Database {
 
         await this.database.remove(idx, { multi: true });
     }
-    async linkDevice(roomName,deviceID) {
-        logger.debug('DB [' + this.db + '] link device: ' + roomName + ' [' + deviceID + ']');
-        var idx = {
-            roomName: roomName
-        };
-        const record = await this.database.find(idx);
-        logger.debug('IN: %j',record);
-        if (record) {
-            logger.debug('Inserting ID');
-            const devices = new Set();
-            if (record.devices) { devices.add(record.devices) };
-            devices.add(deviceID);
-            record.devices = [...devices];
-            logger.debug('OUT: %j',record);
-            await this.database.update(idx, record, { upsert: true });
-        }
-    }
 }
 
 exports.Data = RoomDB;
