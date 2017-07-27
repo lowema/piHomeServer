@@ -6,14 +6,15 @@ class FeedsDB extends Database {
         super('feedsDB');
         this.database.ensureIndex({ fieldName: 'feedURL', unique: true });
     }
-    async add(name, feedURL) {
-        logger.debug('DB [' + this.db + '] add feed: ' + feedURL);
+    async add(name, feedURL, expiryTime) {
+        logger.debug('DB [' + this.db + '] add feed: ' + name);
         var idx = {
             feedURL: feedURL
         };
         var doc = {
             feedName: name,
             feedURL: feedURL,
+            expiryTime: expiryTime,
             createdAt: Date.now()
         };
 

@@ -4,7 +4,7 @@ const DBrooms = require('./data/rooms');
 const DBdevices = require('./data/devices');
 const DBfeeds = require('./data/feeds');
 
-const doHomeStuff = async () => {
+const doHomeStuff = async() => {
     const home = new DBhome.Data();
     logger.info(await home.add('My Home'));
 
@@ -14,11 +14,11 @@ const doHomeStuff = async () => {
     logger.info(await rooms.addRoom('Bedroom'));
 
     const devices = new DBdevices.Data();
-    logger.info(await devices.add('Lamp 1'));
-    logger.info(await devices.add('Lamp 2'));
-    logger.info(await devices.add('Lamp 3'));
-    logger.info(await devices.add('Lamp 4'));
-    logger.info(await devices.add('Lamp 5'));
+    logger.info(await devices.add('Lamp 1', 'lighting', 'hue'));
+    logger.info(await devices.add('Lamp 2', 'lighting', 'hue'));
+    logger.info(await devices.add('Lamp 3', 'lighting', 'hue'));
+    logger.info(await devices.add('Lamp 4', 'lighting', 'hue'));
+    logger.info(await devices.add('Lamp 5', 'lighting', 'hue'));
 
     logger.info(await devices.linkToRoom('Lamp 1', 'Lounge'));
     logger.info(await devices.linkToRoom('Lamp 4', 'Lounge'));
@@ -41,11 +41,13 @@ const doHomeStuff = async () => {
     logger.info(countd + ' records in total.');
 }
 
-const doFeedStuff = async () => {
+const doFeedStuff = async() => {
     const feeds = new DBfeeds.Data();
 
-    await feeds.add('BBC News', 'http://feeds.bbci.co.uk/news/rss.xml');
-    await feeds.add('Guardian News', 'https://www.theguardian.com/uk/rss');
+    await feeds.deleteAllData();
+
+    await feeds.add('BBC News', 'http://feeds.bbci.co.uk/news/rss.xml', 86400);
+    await feeds.add('Guardian News', 'https://www.theguardian.com/uk/rss', 86400);
 
     const [data, count] = [await feeds.getAllData(), await feeds.getCount()];
     logger.info(data);

@@ -34,6 +34,17 @@ class ArticlesDB extends Database {
 
         await this.database.remove(idx, { multi: true });
     }
+    async removeExpiredArticles(feedURL, expiryDate) {
+        logger.debug('DB [' + this.db + '] find expired: %s', feedURL);
+        var idx = {
+            feedURL: feedURL,
+            createdAt: { $gte: expiryDate }
+        };
+        const rows = await this.database.remove(idx, { multi: true });
+
+        return rows;
+    }
+
 }
 
 exports.Data = ArticlesDB;

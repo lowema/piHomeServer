@@ -15,6 +15,7 @@ exports.settings = {
     },
     "collectors": [
         { "name": 'RSS Collector', "cron": '*/10 * * * *', "module": './collectors/RSS/getNews' },
+        { "name": 'RSS Expirer', "cron": '* */12 * * *', "module": './collectors/RSS/expireArticles' },
         { "name": 'Test Collector', "cron": '*/10 * * * * *', "module": './collectors/test' }
     ]
 }

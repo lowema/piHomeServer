@@ -3,14 +3,18 @@ const express = require('express');
 const logger = require('./utils/logger');
 const settings = require('./settings').settings;
 
+const apis = require('./apis');
+const collectors = require('./collectors');
+const drivers = require('./drivers');
+
 // app settings
 logger.level = settings.logging.logLevel;
-let app = express();
+const app = express();
 app.use(require('./utils/access'));
 
 //***API routes are defined here
 logger.info('API ROUTES ...');
-app.use(require('./api').router());
+app.use(apis.router());
 
 //***STATIC routes set up here for serving a client app
 logger.info('STATIC ROUTES ...');
@@ -25,7 +29,9 @@ app.use('/client', express.static(path.join(__dirname, 'static/client')));
 logger.info('ROUTE: /admin');
 app.use('/admin', express.static(path.join(__dirname, 'static/admin')));
 
-require('./collectors').init();
+collectors.init();
+drivers.init();
+
 app.listen(settings.server.portNumber, () => {
     logger.info('PiHomeServer is now listening: PORT(' + settings.server.portNumber + ')');
 });

@@ -7,13 +7,16 @@ class DeviceDB extends Database {
         this.database.ensureIndex({ fieldName: 'deviceName', unique: true });
 
     }
-    async add(deviceName) {
+    async add(deviceName, deviceClass, deviceDriver) {
         logger.debug('DB [' + this.db + '] add device: ' + deviceName);
         var idx = {
             deviceName: deviceName
         };
         var doc = {
             deviceName: deviceName,
+            deviceClass: deviceClass,
+            deviceDriver: deviceDriver,
+            deviceState: {},
             createdAt: Date.now()
         };
 
@@ -51,6 +54,21 @@ class DeviceDB extends Database {
         };
 
         const record = await this.database.find(idx);
+
+        return record;
+    }
+    async setState(deviceName, deviceState) {
+        logger.debug('DB [' + this.db + '] link device: ' + deviceName);
+        var idx = {
+            deviceName: deviceName
+        };
+        var doc = {
+            $set: {
+                deviceState: deviceState
+            }
+        };
+
+        const record = await this.database.update(idx, doc, { upsert: true, returnUpdatedDocs: true });
 
         return record;
     }
