@@ -54,10 +54,46 @@ const doFeedStuff = async() => {
     logger.info(count + ' records in total.');
 }
 
+const DBLocations = require('./data/locations');
+const doWeatherStuff = async() => {
+    const data = new DBLocations.DB();
+
+    await data.deleteAllData();
+
+    await data.add(new DBLocations.Record('Heathrow, GB', 7284876, 51.4673, -0.4529, 'openWeather', true));
+    await data.add(new DBLocations.Record('Birmingham, GB', 2655603, 52.481419, -1.89983, 'openWeather', false));
+
+    const [recs, count] = [await data.getAllData(), await data.getCount()];
+    logger.info(recs);
+    logger.info(count + ' records in total.');
+}
+
+const httpLib = require('./utils/http');
+const doHTTPStuff = async () => {
+
+    const httpEndpoint = new httpLib.Endpoint('http://news.bbc.co.uk/');
+
+    const get1 = await httpEndpoint.get('/');
+    const get2 = await httpEndpoint.get('/poopz.html');
+
+    logger.info(get1);
+    logger.info(get2);
+
+}
+
+//logger.info('TEST STARTS ...');
+//doHomeStuff();
+//logger.info('TEST ENDS ...');
+
+//logger.info('TEST STARTS ...');
+//doFeedStuff();
+//logger.info('TEST ENDS ...');
+
 logger.info('TEST STARTS ...');
-doHomeStuff();
+doWeatherStuff();
 logger.info('TEST ENDS ...');
 
 logger.info('TEST STARTS ...');
-doFeedStuff();
+doHTTPStuff();
 logger.info('TEST ENDS ...');
+
