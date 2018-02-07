@@ -18,13 +18,14 @@ class WeatherIcons {
 exports.Icons = WeatherIcons;
 
 class WeatherStats {
-    constructor(dayText, temp, high, low, conditions, icon)
+    constructor(dayText, temp, high, low, conditions, description, icon)
     {
         this.dayText = dayText;
         this.temperature = temp
         this.highTemp = high;
         this.lowTemp = low;
         this.conditions = conditions;
+        this.description = description;
         this.icon = icon;
     }
 }

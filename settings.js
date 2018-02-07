@@ -8,6 +8,7 @@ exports.settings = {
     "server": {
         "portNumber": 3000
     },
+    "DBpath": "/serverDB/",
     "logging": {
         "logDirectory": path.join(__dirname, 'log'),
         "logLevel": 'trace',

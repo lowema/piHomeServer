@@ -1,10 +1,11 @@
 const Datastore = require('nedb-promise');
+const settings = require('../settings').settings;
 
 class Database {
     constructor(dbName) {
         this.db = dbName;
-        this.dbFile = './data/DB/' + this.db + '.nedb';
-
+        this.dbFile = settings.DBpath + this.db + '.nedb';
+        
         this.database = new Datastore({ filename: this.dbFile, autoload: true });
     }
     async deleteAllData() {

@@ -81,19 +81,21 @@ const doHTTPStuff = async () => {
 
 }
 
-//logger.info('TEST STARTS ...');
-//doHomeStuff();
-//logger.info('TEST ENDS ...');
+logger.info('TEST STARTS ...');
+doHomeStuff();
+logger.info('TEST ENDS ...');
 
-//logger.info('TEST STARTS ...');
-//doFeedStuff();
-//logger.info('TEST ENDS ...');
+logger.info('TEST STARTS ...');
+doFeedStuff();
+logger.info('TEST ENDS ...');
 
 logger.info('TEST STARTS ...');
 doWeatherStuff();
 logger.info('TEST ENDS ...');
 
+/*
 logger.info('TEST STARTS ...');
 doHTTPStuff();
 logger.info('TEST ENDS ...');
 
+*/
