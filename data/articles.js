@@ -6,12 +6,13 @@ class ArticlesDB extends Database {
         super('articlesDB');
         this.database.ensureIndex({ fieldName: 'articleGUID', unique: true });
     }
-    async add(articleGUID, title, contents, author, URL, feedURL, feedTitle) {
+    async add(articleGUID, title, contents, author, URL, feedURL, feedTitle, sourceID) {
         logger.debug('DB [' + this.db + '] add article: ' + articleGUID);
         var idx = {
             articleGUID: articleGUID
         };
         var doc = {
+            sourceID: sourceID,
             title: title,
             contents: contents,
             author: author,

@@ -4,7 +4,7 @@ const moment = require('moment');
 const DBWeather = require('../../data/weather');
 const httpUtils = require('../../utils/http');
 
-const weatherAPIKey = '66aad567a94e22100a5323d748cc9ebf';
+const weatherAPIKey = global.settings.weather.openWeatherkey;
 
 const makeStatsData = (statJSON) => {
     logger.debug('JSON --> %j',statJSON);
@@ -25,7 +25,7 @@ exports.weather = async (locationID) => {
     logger.info('OpenWeather handler %s', locationID);
 
     const icons = new DBWeather.Icons();
-    const httpEndpoint = new httpUtils.Endpoint('http://api.openweathermap.org/data/2.5/');
+    const httpEndpoint = new httpUtils.Endpoint(global.settings.weather.openWeatherURL);
 
     logger.debug('Current Outlook');
     let currentStats = {};

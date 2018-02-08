@@ -60,7 +60,7 @@ exports.deleteSourcesID = async (req, res, next) => {
 exports.getSourcesIDArticles = async (req, res, next) => {
     logger.debug('GET SOURCES ARTICLES happened');
     const sourceID = req.params.sourceID;
-    const articleQuery = { feedSource: sourceID };
+    const articleQuery = { sourceID: sourceID };
     const articleJSON = await articles.getDataByQuery(articleQuery);
     res.json(articleJSON);
 }

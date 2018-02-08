@@ -12,13 +12,16 @@ const feedHandler = (err, articles) => {
     } else {
         articles.forEach((article) => {
             // each article will become part of the articles database
-            articleDB.add(article.guid,
+            articleDB.add(
+                article.guid,
                 article.title,
                 article.content,
                 article.author,
                 article.link,
                 article.feed.source,
-                article.feed.name);
+                article.feed.name,
+                article.sourceID
+            );
         }, this);
         logger.info('RSS Collector - ' + articles.length + ' articles fetched from RSS feed');
     }
@@ -30,8 +33,8 @@ const runMe = async () => {
     const feedData = await feedDB.getAllData();
 
     feedData.forEach((feedEntry) => {
-        logger.info('RSS Collector - Fetching ' + feedEntry.feedURL);
-        feed.get(feedEntry.feedURL, feedHandler);
+        logger.info('RSS Collector - Fetching %s [%s] ', feedEntry.feedURL, feedEntry._id );
+        feed.get(feedEntry.feedURL, feedEntry._id , feedHandler);
     });
 }
 

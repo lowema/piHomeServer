@@ -47,8 +47,8 @@ var childData = (parent, name) => {
 //              * "feed" - {name, source, link}
 //
 // Returns nothing.
-var FeedRead = (feedURL, callback) => {
-    FeedRead.get(feedURL, callback);
+var FeedRead = (feedURL, feedSourceID, callback) => {
+    FeedRead.get(feedURL, feedSourceID, callback);
 };
 
 FeedRead.identifyCharset = (response) => {
@@ -58,7 +58,7 @@ FeedRead.identifyCharset = (response) => {
     return match && match[1] || "utf-8";
 }
 
-FeedRead.get = (feedURL, callback) => {
+FeedRead.get = (feedURL, feedSourceID, callback) => {
     request(feedURL, { timeout: 5000 }, (err, res, body) => {
         if (err) {
             logger.error('Unable to fetch feed ', '<' + feedURL + '>', res.statusCode);
@@ -68,10 +68,10 @@ FeedRead.get = (feedURL, callback) => {
         var type = FeedRead.identify(body);
         if (type === "atom") {
             logger.debug('ATOM: ' + feedURL);
-            FeedRead.atom(body, feedURL, callback);
+            FeedRead.atom(body, feedURL, feedSourceID, callback);
         } else if (type === "rss") {
             logger.debug('RSS: ' + feedURL);
-            FeedRead.rss(body, feedURL, callback);
+            FeedRead.rss(body, feedURL, feedSourceID, callback);
         } else {
             logger.error('Body is not RSS or ATOM', '<' + feedURL + '>', res.statusCode);
 
@@ -90,7 +90,7 @@ FeedRead.identify = (xml) => {
     }
 }
 
-FeedRead.atom = (xml, source, callback) => {
+FeedRead.atom = (xml, source, sourceID, callback) => {
     if (!callback) {
         return FeedRead.atom(xml, "", source);
     }
@@ -131,6 +131,7 @@ FeedRead.atom = (xml, source, callback) => {
                     author = childData(author, "name");
                 }
                 var obj = {
+                    sourceID: sourceID,
                     title: childData(art, "title"),
                     content: scrubHTML(childData(art, "content")),
                     published: childData(art, "published") || childData(art, "updated"),
@@ -155,7 +156,7 @@ FeedRead.atom = (xml, source, callback) => {
 };
 
 
-FeedRead.rss = (xml, source, callback) => {
+FeedRead.rss = (xml, source, sourceID, callback) => {
     if (!callback) {
         return FeedRead.rss(xml, "", source);
     }
@@ -190,6 +191,7 @@ FeedRead.rss = (xml, source, callback) => {
                 }
 
                 var obj = {
+                    sourceID: sourceID,
                     title: childData(art, "title"),
                     content: scrubHTML(childData(art, "content:encoded")) || scrubHTML(childData(art, "description")),
                     published: childData(art, "pubDate"),

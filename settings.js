@@ -19,6 +19,10 @@ exports.settings = {
         { "name": 'RSS Expirer', "cron": '* */12 * * *', "module": './collectors/RSS/expireArticles' },
         { "name": 'Weather Collector', "cron": '*/20 * * * *', "module": './collectors/weather/getWeather' }
     ],
+    "weather":{
+        "openWeatherKey": "66aad567a94e22100a5323d748cc9ebf",
+        "openWeatherURL": "http://api.openweathermap.org/data/2.5/"
+    },
     "allcollectors": [
         { "name": 'RSS Collector', "cron": '*/10 * * * *', "module": './collectors/RSS/getNews' },
         { "name": 'RSS Expirer', "cron": '* */12 * * *', "module": './collectors/RSS/expireArticles' },

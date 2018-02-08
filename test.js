@@ -4,14 +4,14 @@ const DBrooms = require('./data/rooms');
 const DBdevices = require('./data/devices');
 const DBfeeds = require('./data/feeds');
 
-const doHomeStuff = async() => {
+const doHomeStuff = async () => {
     const home = new DBhome.Data();
     logger.info(await home.add('My Home'));
 
     const rooms = new DBrooms.Data();
     logger.info(await rooms.addRoom('Lounge'));
     logger.info(await rooms.addRoom('Kitchen'));
-    logger.info(await rooms.addRoom('Bedroom'));
+    logger.info(await rooms.addRoom('Bedroom'));   
 
     const devices = new DBdevices.Data();
     logger.info(await devices.add('Lamp 1', 'lighting', 'hue'));
