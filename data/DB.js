@@ -23,6 +23,11 @@ class Database {
     async deleteAllData() {
         await this.database.remove({}, { multi: true });
     }
+    async deleteDataByID(id) {
+        const idx = { _id: id };
+        await this.database.remove(idx, { multi: true });
+        
+    }
     async getAllData() {
         const result = await this.database.find({});
 

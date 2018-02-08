@@ -1,7 +1,7 @@
 var logger = require('winston');
 
 const DBrooms = require('../data/rooms');
-const roomsDB = new DBrooms.Data();
+const database = new DBrooms.Data();
 
 exports.all = async (req, res, next) => {
     logger.trace('ROOMS.JS');
@@ -10,7 +10,7 @@ exports.all = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     logger.trace('GET happened');
-    const data = await roomsDB.getAllData();
+    const data = await database.getAllData();
     res.json(data);
 }
 

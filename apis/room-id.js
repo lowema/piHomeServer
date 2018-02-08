@@ -1,19 +1,19 @@
 var logger = require('winston');
 
 const DBrooms = require('../data/rooms');
-const roomsDB = new DBrooms.Data();
+const database = new DBrooms.Data();
+
+let dataID = '';
 
 exports.all = async (req, res, next) => {
     logger.debug('ROOM-ID.JS (' + req.params.roomID + ')');
+    dataID = req.params.roomID;
     await next();
 }
 
 exports.get = async (req, res, next) => {
-    const roomID = req.params.roomID;
-    logger.debug('GET happened for room %s', roomID);
-    const roomJSON = await roomsDB.getDataByID(roomID);
-    logger.debug('JSON --> %j', roomJSON);
-    res.json(roomJSON);
+    const data = await database.getDataByID(dataID);
+    res.json(data);
 }
 
 exports.put = async (req, res, next) => {
@@ -23,5 +23,6 @@ exports.put = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
     logger.trace('DELETE happened');
-    await next(new Error('Not yet implemented'));
+    await database.deleteDataByID(dataID);
+    res.status(201);
 }
