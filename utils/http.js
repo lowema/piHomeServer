@@ -18,7 +18,7 @@ class Endpoint {
         this.baseURL = baseURL;
     }
     async get(relativeURL, queryString) {
-        logger.info('HTTP Request [GET %s] %s', this.baseURL, relativeURL);
+        logger.debug('HTTP Request [GET %s] %s', this.baseURL, relativeURL);
         const opt = { baseUrl: this.baseURL, url: relativeURL, qs: queryString };
         let res = null;
         try {
@@ -31,19 +31,19 @@ class Endpoint {
         return res;
     }
     async post(body) {
-        await logger.info('HTTP Request [POST] %s', this.URL);
+        await logger.debug('HTTP Request [POST] %s', this.URL);
         const res = 'POST meh';
 
         return res;
     }
     async put(body) {
-        await logger.info('HTTP Request [PUT] %s', this.URL);
+        await logger.debug('HTTP Request [PUT] %s', this.URL);
         const res = 'PUT meh';
 
         return res;
     }
     async delete() {
-        await logger.info('HTTP Request [DELETE] %s', this.URL);
+        await logger.debug('HTTP Request [DELETE] %s', this.URL);
         const res = 'DELETE meh';
 
         return res;

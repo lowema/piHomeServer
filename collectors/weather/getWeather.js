@@ -11,10 +11,12 @@ const weatherDB = new DBWeather.DB();
 const runMe = async () => {
     logger.info('Weather Collector - Fetching all locations');
     const locations = await locationsDB.getAllData();
+    
+    logger.info('Removing previous weather data');
+    await weatherDB.deleteAllData();
 
     locations.forEach(async (location) => {
         logger.info('Weather Collector - Fetching %s from %s', location.locationName, location.weatherProvider);
-
 
         if (location.locationID === null) {
             logger.error('FFS');
@@ -34,7 +36,7 @@ const runMe = async () => {
         }
 
         const record = await weatherDB.add(weatherData.idx, weatherData.doc);
-        logger.info(record);
+        logger.debug(record);
     });
 }
 

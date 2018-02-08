@@ -11,11 +11,13 @@ exports.settings = {
     "DBpath": "/serverDB/",
     "logging": {
         "logDirectory": path.join(__dirname, 'log'),
-        "logLevel": 'trace',
+        "logLevel": 'info',
         "accessLogTokens": ":date[iso] :method :url :status :response-time :user-agent :remote-addr :remote-user"
     },
     "collectors": [
-        { "name": 'RSS Collector', "cron": '*/1 * * * *', "module": './collectors/RSS/getNews' }
+        { "name": 'RSS Collector', "cron": '*/10 * * * *', "module": './collectors/RSS/getNews' },
+        { "name": 'RSS Expirer', "cron": '* */12 * * *', "module": './collectors/RSS/expireArticles' },
+        { "name": 'Weather Collector', "cron": '*/20 * * * *', "module": './collectors/weather/getWeather' }
     ],
     "allcollectors": [
         { "name": 'RSS Collector', "cron": '*/10 * * * *', "module": './collectors/RSS/getNews' },

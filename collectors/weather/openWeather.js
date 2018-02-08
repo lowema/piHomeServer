@@ -22,7 +22,6 @@ const makeStatsData = (statJSON) => {
 }
 
 exports.weather = async (locationID) => {
-    logger.info('+=====================================================================================================================================================');
     logger.info('OpenWeather handler %s', locationID);
 
     const icons = new DBWeather.Icons();
@@ -39,7 +38,7 @@ exports.weather = async (locationID) => {
         logger.error('OpenWeather current weather handler had a HTTP error [%s]', current.statusCode);
     }
 
-    logger.info('Forecast');
+    logger.debug('Forecast');
     let forecastArray = [];
     const forecast = await httpEndpoint.get('/forecast', { id: locationID, APPID: weatherAPIKey, units: 'metric' });
     if (forecast.statusCode === 200) {
