@@ -15,6 +15,9 @@ exports.settings = {
         "accessLogTokens": ":date[iso] :method :url :status :response-time :user-agent :remote-addr :remote-user"
     },
     "collectors": [
+        { "name": 'RSS Collector', "cron": '*/1 * * * *', "module": './collectors/RSS/getNews' }
+    ],
+    "allcollectors": [
         { "name": 'RSS Collector', "cron": '*/10 * * * *', "module": './collectors/RSS/getNews' },
         { "name": 'RSS Expirer', "cron": '* */12 * * *', "module": './collectors/RSS/expireArticles' },
         { "name": 'Weather Collector', "cron": '*/10 * * * * *', "module": './collectors/weather/getWeather' },

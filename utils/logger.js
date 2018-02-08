@@ -1,9 +1,8 @@
-const settings = require('../settings').settings;
 const fs = require('fs');
 const logger = require('winston');
 
 // ensure log directory exists
-fs.existsSync(settings.logging.logDirectory) || fs.mkdirSync(settings.logging.logDirectory);
+fs.existsSync(global.settings.logging.logDirectory) || fs.mkdirSync(global.settings.logging.logDirectory);
 
 // Set up logger
 var customColours = {
@@ -37,7 +36,7 @@ logger.add(logger.transports.Console, {
 
 //logger.remove(logger.transports.File);
 logger.add(logger.transports.File, {
-    filename: settings.logging.logDirectory + '/debug.log',
+    filename: global.settings.logging.logDirectory + '/debug.log',
     level: 'trace',
     prettyPrint: true,
     colorize: false,

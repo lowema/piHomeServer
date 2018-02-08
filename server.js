@@ -1,19 +1,21 @@
-const path = require('path');
-const express = require('express');
-const logger = require('./utils/logger');
-const settings = require('./settings').settings;
+// BEWARE global variables
+global.settings = require('./settings').settings;
 
-const apis = require('./apis');
-const collectors = require('./collectors');
-const drivers = require('./drivers');
+// set up logger
+const logger = require('./utils/logger');
+logger.level = global.settings.logging.logLevel;
+
+// standard library and some express goodness
+const express = require('express');
+const path = require('path');
 
 // app settings
-logger.level = settings.logging.logLevel;
 const app = express();
 app.use(require('./utils/access'));
 
 //***API routes are defined here
 logger.info('API ROUTES ...');
+const apis = require('./apis');
 app.use(apis.router());
 
 //***STATIC routes set up here for serving a client app
@@ -29,9 +31,15 @@ app.use('/client', express.static(path.join(__dirname, 'static/client')));
 logger.info('ROUTE: /admin');
 app.use('/admin', express.static(path.join(__dirname, 'static/admin')));
 
+// background data collectors
+const collectors = require('./collectors');
 collectors.init();
+
+// drivers for devices etc
+const drivers = require('./drivers');
 drivers.init();
 
-app.listen(settings.server.portNumber, () => {
-    logger.info('PiHomeServer is now listening: PORT(' + settings.server.portNumber + ')');
+// and away we go ...
+app.listen(global.settings.server.portNumber, () => {
+    logger.info('PiHomeServer is now listening: PORT(' + global.settings.server.portNumber + ')');
 });

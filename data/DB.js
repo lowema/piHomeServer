@@ -1,12 +1,24 @@
+const logger = require('winston');
 const Datastore = require('nedb-promise');
-const settings = require('../settings').settings;
 
 class Database {
     constructor(dbName) {
         this.db = dbName;
-        this.dbFile = settings.DBpath + this.db + '.nedb';
+        this.dbFile = global.settings.DBpath + this.db + '.nedb';
         
-        this.database = new Datastore({ filename: this.dbFile, autoload: true });
+        if(global.dbList === undefined) { 
+            logger.debug('Setting up global DB list');
+            global.dbList = {};
+        }
+
+        if(global.dbList[dbName]) {
+            logger.debug('DB made from exitsing object');
+            this.database = global.dbList[dbName];
+        } else {
+            logger.debug('New DB connection object made');
+            this.database = new Datastore({ filename: this.dbFile, autoload: true });
+            global.dbList[dbName] = this.database;
+        }
     }
     async deleteAllData() {
         await this.database.remove({}, { multi: true });

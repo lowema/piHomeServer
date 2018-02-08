@@ -1,7 +1,7 @@
-var logger = require('winston');
-const DB = require('../data/articles');
+const logger = require('winston');
 
-const articlesDB = new DB.Data();
+const DBarticles = require('../data/articles');
+const articlesDB = new DBarticles.Data();
 
 exports.all = async (req, res, next) => {
     logger.trace('ARTICLES.JS');
@@ -10,6 +10,5 @@ exports.all = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     logger.trace('GET happened');
-    const data = await articlesDB.getAllData();
-    res.json(data);
+    res.json(await articlesDB.getAllData());
 }
