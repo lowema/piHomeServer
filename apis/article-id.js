@@ -10,5 +10,9 @@ exports.all = async (req, res, next) => {
 
 exports.get = async (req, res, next) => {
     logger.trace('GET happened');
-    res.json(await articleDB.getAllData());
+    const articleID = req.params.articleID;
+    logger.debug('GET happened for article %s', articleID);
+    const articleJSON = await articleDB.getDataByID(articleID);
+    logger.debug('JSON --> %j', articleJSON);
+    res.json(articleJSON);
 }

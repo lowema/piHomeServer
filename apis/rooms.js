@@ -1,6 +1,6 @@
 var logger = require('winston');
-const DBrooms = require('../data/rooms');
 
+const DBrooms = require('../data/rooms');
 const roomsDB = new DBrooms.Data();
 
 exports.all = async (req, res, next) => {

@@ -28,6 +28,12 @@ class Database {
 
         return result;
     }
+    async getDataByID(id) {
+        const idx = { _id: id };
+        let result = await this.database.find(idx);
+
+        return result;
+    }
     async getCount() {
         const result = await this.database.count({});
 

@@ -22,7 +22,7 @@ exports.router = () => {
         .all(exUtils.catchAsyncErrors(articlesAPI.all))
         .get(exUtils.catchAsyncErrors(articlesAPI.get));
 
-    logger.info('ROUTE: /article/{ID}');
+    logger.info('ROUTE: /articles/{ID}');
     const articleAPI = require('./apis/article-id');
     router.route('/articles/:articleID')
         .all(exUtils.catchAsyncErrors(articleAPI.all))
