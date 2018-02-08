@@ -16,17 +16,33 @@ exports.router = () => {
         .delete(exUtils.catchAsyncErrors(apiTest.delete));
 
     // articles from RSS collector
-    logger.info('ROUTE: /articles');
     const articlesAPI = require('./apis/articles');
-    router.route('/articles')
+    logger.info('ROUTE: /news/articles');
+    router.route('/news/articles')
         .all(exUtils.catchAsyncErrors(articlesAPI.all))
         .get(exUtils.catchAsyncErrors(articlesAPI.get));
 
-    logger.info('ROUTE: /articles/{ID}');
-    const articleAPI = require('./apis/article-id');
-    router.route('/articles/:articleID')
-        .all(exUtils.catchAsyncErrors(articleAPI.all))
-        .get(exUtils.catchAsyncErrors(articleAPI.get));
+    logger.info('ROUTE: /news/articles/{ID}');
+    router.route('/news/articles/:articleID')
+        .all(exUtils.catchAsyncErrors(articlesAPI.allID))
+        .get(exUtils.catchAsyncErrors(articlesAPI.getID));
+
+    logger.info('ROUTE: /news/sources');
+    router.route('/news/sources')
+        .all(exUtils.catchAsyncErrors(articlesAPI.all))
+        .post(exUtils.catchAsyncErrors(articlesAPI.postSources))
+        .get(exUtils.catchAsyncErrors(articlesAPI.getSources));
+
+    logger.info('ROUTE: /news/sources/{ID}');
+    router.route('/news/sources/:sourceID')
+        .all(exUtils.catchAsyncErrors(articlesAPI.all))
+        .put(exUtils.catchAsyncErrors(articlesAPI.putSourcesID))
+        .delete(exUtils.catchAsyncErrors(articlesAPI.deleteSourcesID));
+
+    logger.info('ROUTE: /news/sources/{ID}');
+    router.route('/news/sources/:sourceID/articles')
+        .all(exUtils.catchAsyncErrors(articlesAPI.all))
+        .get(exUtils.catchAsyncErrors(articlesAPI.getSourcesIDArticles));
 
     // home management API
     logger.info('ROUTE: /home');

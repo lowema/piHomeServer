@@ -39,6 +39,11 @@ class Database {
 
         return result;
     }
+    async getDataByQuery(query) {
+        let result = await this.database.find(query);
+
+        return result;
+    }
     async getCount() {
         const result = await this.database.count({});
 
