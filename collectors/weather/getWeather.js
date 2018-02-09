@@ -5,8 +5,8 @@ const openWeather = require('./openWeather');
 const DBLocations = require('../../data/locations');
 const DBWeather = require('../../data/weather');
 
-const locationsDB = new DBLocations.DB();
-const weatherDB = new DBWeather.DB();
+const locationsDB = new DBLocations.Data();
+const weatherDB = new DBWeather.Data();
 
 const runMe = async () => {
     logger.info('Weather Collector - Fetching all locations');

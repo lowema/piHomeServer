@@ -26,7 +26,9 @@ class Database {
     async deleteDataByID(id) {
         const idx = { _id: id };
         await this.database.remove(idx, { multi: true });
-        
+    }
+    async deleteDataByQuery(query) {
+        await this.database.remove(query, { multi: true });
     }
     async getAllData() {
         const result = await this.database.find({});
@@ -40,7 +42,7 @@ class Database {
         return result;
     }
     async getDataByQuery(query) {
-        let result = await this.database.find(query);
+        const result = await this.database.find(query);
 
         return result;
     }

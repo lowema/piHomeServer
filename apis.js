@@ -15,7 +15,32 @@ exports.router = () => {
         .post(exUtils.catchAsyncErrors(apiTest.post))
         .delete(exUtils.catchAsyncErrors(apiTest.delete));
 
-    // articles from RSS collector
+    // weather API
+    const weatherAPI = require('./apis/weather');
+
+    logger.info('ROUTE: /weather/forecast');
+    router.route('/weather/forecast')
+        .all(exUtils.catchAsyncErrors(weatherAPI.all))
+        .get(exUtils.catchAsyncErrors(weatherAPI.getWeather));
+
+    logger.info('ROUTE: /weather/forecast/{ID}');
+    router.route('/weather/forecast/:locationID')
+        .all(exUtils.catchAsyncErrors(weatherAPI.all))
+        .get(exUtils.catchAsyncErrors(weatherAPI.getLocationWeather));
+
+    logger.info('ROUTE: /weather/locations');
+    router.route('/weather/locations')
+        .all(exUtils.catchAsyncErrors(weatherAPI.all))
+        .post(exUtils.catchAsyncErrors(weatherAPI.notImplemented))
+        .get(exUtils.catchAsyncErrors(weatherAPI.getLocations));
+
+    logger.info('ROUTE: /weather/locations/{ID}');
+    router.route('/weather/locations/:locationID')
+        .all(exUtils.catchAsyncErrors(weatherAPI.all))
+        .put(exUtils.catchAsyncErrors(weatherAPI.notImplemented))
+        .delete(exUtils.catchAsyncErrors(weatherAPI.deleteLocation));
+
+    // news API
     const articlesAPI = require('./apis/articles');
     logger.info('ROUTE: /news/articles');
     router.route('/news/articles')

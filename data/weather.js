@@ -68,10 +68,5 @@ class WeatherDB extends Database {
 
         return record;
     }
-    async delete(idx) {
-        logger.debug('DB [' + this.db + '] delete feed: ' + idx.locationID);
-
-        await this.database.remove(idx, { multi: true });
-    }
 }
-exports.DB = WeatherDB;
+exports.Data = WeatherDB;

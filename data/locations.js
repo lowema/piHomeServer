@@ -34,17 +34,13 @@ class LocationsDB extends Database {
         super('locationsDB');
         this.database.ensureIndex({ fieldName: 'locationName', unique: true });
     }
+
     async add(record) {
         logger.debug('DB [' + this.db + '] add feed: ' + record.doc.locationName);
         const result = await this.database.update(record.idx, record.doc, { upsert: true, returnUpdatedDocs: true });
 
         return result;
     }
-    async delete(idx) {
-        logger.debug('DB [' + this.db + '] delete feed: ' + idx.locationName);
-
-        await this.database.remove(idx, { multi: true });
-    }
 }
 
-exports.DB = LocationsDB;
+exports.Data = LocationsDB;
